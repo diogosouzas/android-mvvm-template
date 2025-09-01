@@ -11,6 +11,10 @@ on:
         required: true
         type: string
 
+permissions:
+  contents: write   # Required for checkout and creating releases
+  actions: write    # Required for artifact uploads
+
 env:
   GRADLE_OPTS: -Dorg.gradle.daemon=false -Dorg.gradle.workers.max=2
 

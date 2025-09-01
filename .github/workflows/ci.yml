@@ -7,6 +7,12 @@ on:
     branches: [ main, develop ]
   workflow_dispatch: # Allows manual trigger
 
+permissions:
+  contents: read    # Required for checkout
+  checks: write     # Required for test reporters to create check runs
+  actions: write    # Required for artifact uploads
+  pull-requests: read # Required for PR context
+
 env:
   GRADLE_OPTS: -Dorg.gradle.daemon=false -Dorg.gradle.workers.max=2 -Dorg.gradle.parallel=true
   GRADLE_BUILD_ACTION_CACHE_DEBUG_ENABLED: true
