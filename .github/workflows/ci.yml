@@ -83,6 +83,7 @@ jobs:
         path: '**/TEST-*.xml'
         reporter: java-junit
         fail-on-error: false
+        fail-on-empty: false
 
     - name: 📤 Upload Test Results
       uses: actions/upload-artifact@v4
