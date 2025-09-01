@@ -1,0 +1,100 @@
+name: ✨ Feature Request
+description: Suggest a new feature or improvement for the template
+title: "[FEATURE] "
+labels: ["enhancement", "needs-triage"]
+assignees:
+  - diogosouzas
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for suggesting a feature! ✨ Your ideas help make this template better.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: 🎯 Problem/Need
+      description: Is your feature request related to a problem? Please describe.
+      placeholder: A clear and concise description of what the problem is...
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: 💡 Proposed Solution
+      description: Describe the solution you'd like to see
+      placeholder: A clear and concise description of what you want to happen...
+    validations:
+      required: true
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: 📂 Category
+      description: What category does this feature belong to?
+      options:
+        - Architecture (New patterns/approaches)
+        - UI/UX (Compose components/themes)
+        - Data Layer (Database/API improvements)
+        - Testing (New test utilities/patterns)
+        - CI/CD (Pipeline improvements)
+        - Documentation (Guides/examples)
+        - Developer Experience (Tools/templates)
+        - Performance (Optimizations)
+        - Security (Security enhancements)
+        - Other
+    validations:
+      required: true
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: 🔥 Priority
+      description: How important is this feature?
+      options:
+        - "Low - Nice to have"
+        - "Medium - Would be helpful"
+        - "High - Important for many users"
+        - "Critical - Essential functionality"
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: 🔄 Alternatives Considered
+      description: Describe any alternative solutions or features you've considered
+      placeholder: What alternatives have you considered?
+
+  - type: textarea
+    id: implementation
+    attributes:
+      label: 🛠️ Implementation Ideas
+      description: If you have ideas on how to implement this, please share
+      placeholder: How do you think this could be implemented?
+
+  - type: textarea
+    id: examples
+    attributes:
+      label: 📚 Examples/References
+      description: Any examples from other projects or libraries?
+      placeholder: Links to examples or similar implementations...
+
+  - type: checkboxes
+    id: contribution
+    attributes:
+      label: 🤝 Contribution
+      description: Would you be willing to contribute?
+      options:
+        - label: I would be willing to implement this feature
+        - label: I would be willing to help test this feature
+        - label: I would be willing to help document this feature
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: 📎 Additional Context
+      description: Any additional context, mockups, or information
+      placeholder: Add any other context, screenshots, or mockups here...

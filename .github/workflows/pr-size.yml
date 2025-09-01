@@ -1,0 +1,51 @@
+name: 🏷️ PR Size Labeling
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  size-labeling:
+    name: 📏 Label PR by Size
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 🏷️ Add size label
+      uses: codelytv/pr-size-labeler@v1
+      with:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        xs_label: 'size/XS'
+        xs_max_size: 10
+        s_label: 'size/S'
+        s_max_size: 100
+        m_label: 'size/M'
+        m_max_size: 500
+        l_label: 'size/L'
+        l_max_size: 1000
+        xl_label: 'size/XL'
+        fail_if_xl: false
+
+  component-labeling:
+    name: 🏗️ Label by Component
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 📥 Checkout Code
+      uses: actions/checkout@v4
+
+    - name: 🏷️ Component Labeling
+      uses: actions/labeler@v4
+      with:
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        configuration-path: .github/labeler.yml
+
+  auto-assign:
+    name: 👤 Auto Assign Reviewers
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 👤 Auto Assign
+      uses: kentaro-m/auto-assign-action@v1.2.5
+      with:
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        configuration-path: .github/auto-assign.yml

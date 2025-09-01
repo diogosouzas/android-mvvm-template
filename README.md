@@ -1,5 +1,13 @@
 # Android Architecture Template
 
+[![CI/CD Pipeline](https://github.com/diogosouzas/android-mvvm-template/actions/workflows/ci.yml/badge.svg)](https://github.com/diogosouzas/android-mvvm-template/actions/workflows/ci.yml)
+[![Security Scan](https://github.com/diogosouzas/android-mvvm-template/actions/workflows/security.yml/badge.svg)](https://github.com/diogosouzas/android-mvvm-template/actions/workflows/security.yml)
+[![GitHub release (latest by date)](https://img.shields.io/github/v/release/diogosouzas/android-mvvm-template)](https://github.com/diogosouzas/android-mvvm-template/releases)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![API](https://img.shields.io/badge/API-24%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=24)
+[![Kotlin](https://img.shields.io/badge/kotlin-2.0.21-blue.svg?logo=kotlin)](http://kotlinlang.org)
+[![Gradle](https://img.shields.io/badge/gradle-8.12.2-blue.svg?logo=gradle)](https://gradle.org)
+
 Um template de projeto Android moderno que segue as [recomendações oficiais de arquitetura do Google](https://developer.android.com/topic/architecture/recommendations) e implementa as melhores práticas para desenvolvimento Android.
 
 ## 🏗️ Arquitetura

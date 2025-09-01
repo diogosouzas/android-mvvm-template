@@ -1,0 +1,54 @@
+# Component-based labeling
+'component/ui':
+  - 'app/src/main/java/**/ui/**/*'
+  - 'app/src/main/java/**/theme/**/*'
+  - 'app/src/main/res/**/*'
+
+'component/domain':
+  - 'app/src/main/java/**/domain/**/*'
+  - 'app/src/main/java/**/usecase/**/*'
+
+'component/data':
+  - 'app/src/main/java/**/data/**/*'
+  - 'app/src/main/java/**/repository/**/*'
+  - 'app/src/main/java/**/local/**/*'
+  - 'app/src/main/java/**/remote/**/*'
+
+'component/di':
+  - 'app/src/main/java/**/di/**/*'
+
+'component/testing':
+  - 'app/src/test/**/*'
+  - 'app/src/androidTest/**/*'
+
+# File type labeling
+'type/gradle':
+  - '**/*.gradle'
+  - '**/*.gradle.kts'
+  - 'gradle/**/*'
+  - 'gradle.properties'
+
+'type/ci-cd':
+  - '.github/workflows/**/*'
+  - '.github/**/*'
+
+'type/documentation':
+  - '**/*.md'
+  - 'docs/**/*'
+
+'type/config':
+  - '**/*.yml'
+  - '**/*.yaml'
+  - '**/*.json'
+  - '**/*.xml'
+  - '**/*.toml'
+  - '**/*.properties'
+
+# Priority labeling
+'priority/high':
+  - 'app/src/main/AndroidManifest.xml'
+  - 'build.gradle.kts'
+  - 'gradle/libs.versions.toml'
+
+'needs-review':
+  - 'app/src/main/java/**/core/**/*'

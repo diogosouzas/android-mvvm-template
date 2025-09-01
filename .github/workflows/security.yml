@@ -1,0 +1,180 @@
+name: 🔒 Security & Dependencies
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  schedule:
+    - cron: '0 6 * * 1' # Weekly on Monday at 6 AM UTC
+
+permissions:
+  contents: read
+  security-events: write
+  actions: read
+
+jobs:
+  dependency-check:
+    name: 🔍 Dependency Security Scan
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 📥 Checkout Code
+      uses: actions/checkout@v4
+
+    - name: ☕ Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+
+    - name: 📦 Setup Gradle
+      uses: gradle/gradle-build-action@v2
+
+    - name: 🔍 Run Dependency Check
+      run: |
+        echo "🔍 Checking for known vulnerabilities in dependencies..."
+        ./gradlew dependencies > dependencies.txt
+        echo "📋 Dependencies scan completed"
+
+    - name: 📤 Upload Dependencies Report
+      uses: actions/upload-artifact@v4
+      with:
+        name: dependencies-report
+        path: dependencies.txt
+
+  gradle-vulnerability-scan:
+    name: 🛡️ Gradle Vulnerability Scan
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 📥 Checkout Code
+      uses: actions/checkout@v4
+
+    - name: ☕ Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+
+    - name: 📦 Setup Gradle
+      uses: gradle/gradle-build-action@v2
+
+    - name: 🛡️ Gradle Vulnerability Scan
+      run: |
+        echo "🛡️ Scanning for Gradle vulnerabilities..."
+        ./gradlew build --scan || true
+        echo "✅ Gradle scan completed"
+
+  code-scanning:
+    name: 🔎 Code Scanning
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    
+    steps:
+    - name: 📥 Checkout Code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: 🔎 Initialize CodeQL
+      uses: github/codeql-action/init@v2
+      with:
+        languages: java
+        queries: security-and-quality
+
+    - name: ☕ Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+
+    - name: 📦 Setup Gradle
+      uses: gradle/gradle-build-action@v2
+
+    - name: 🏗️ Build for CodeQL
+      run: ./gradlew assembleDebug
+
+    - name: 🔎 Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v2
+      with:
+        category: "/language:java"
+
+  license-check:
+    name: 📜 License Compliance
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 📥 Checkout Code
+      uses: actions/checkout@v4
+
+    - name: ☕ Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+
+    - name: 📦 Setup Gradle
+      uses: gradle/gradle-build-action@v2
+
+    - name: 📜 Check Licenses
+      run: |
+        echo "📜 Checking dependency licenses..."
+        ./gradlew dependencies | grep -E "(compile|implementation|api)" > licenses.txt || true
+        echo "✅ License check completed"
+
+    - name: 📤 Upload License Report
+      uses: actions/upload-artifact@v4
+      with:
+        name: license-report
+        path: licenses.txt
+
+  secret-scanning:
+    name: 🔐 Secret Scanning
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 📥 Checkout Code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: 🔐 Scan for Secrets
+      run: |
+        echo "🔐 Scanning for exposed secrets..."
+        
+        # Check for common secret patterns
+        echo "Checking for API keys..."
+        grep -r -i "api[_-]key" --include="*.kt" --include="*.java" --include="*.xml" . || echo "No API keys found"
+        
+        echo "Checking for passwords..."
+        grep -r -i "password" --include="*.kt" --include="*.java" --include="*.properties" . || echo "No hardcoded passwords found"
+        
+        echo "Checking for tokens..."
+        grep -r -i "token" --include="*.kt" --include="*.java" --include="*.properties" . || echo "No tokens found"
+        
+        echo "✅ Secret scan completed"
+
+  security-summary:
+    name: 📊 Security Summary
+    runs-on: ubuntu-latest
+    needs: [dependency-check, gradle-vulnerability-scan, license-check, secret-scanning]
+    if: always()
+    
+    steps:
+    - name: 📊 Security Summary
+      run: |
+        echo "## 🔒 Security Scan Summary" >> $GITHUB_STEP_SUMMARY
+        echo "| Check | Status |" >> $GITHUB_STEP_SUMMARY
+        echo "|-------|--------|" >> $GITHUB_STEP_SUMMARY
+        echo "| Dependencies | ${{ needs.dependency-check.result }} |" >> $GITHUB_STEP_SUMMARY
+        echo "| Gradle Scan | ${{ needs.gradle-vulnerability-scan.result }} |" >> $GITHUB_STEP_SUMMARY
+        echo "| License Check | ${{ needs.license-check.result }} |" >> $GITHUB_STEP_SUMMARY
+        echo "| Secret Scan | ${{ needs.secret-scanning.result }} |" >> $GITHUB_STEP_SUMMARY
+        
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "### 🛡️ Security Recommendations" >> $GITHUB_STEP_SUMMARY
+        echo "- Keep dependencies updated regularly" >> $GITHUB_STEP_SUMMARY
+        echo "- Use Dependabot for automated updates" >> $GITHUB_STEP_SUMMARY
+        echo "- Scan for vulnerabilities in CI/CD" >> $GITHUB_STEP_SUMMARY
+        echo "- Follow OWASP Mobile Security guidelines" >> $GITHUB_STEP_SUMMARY

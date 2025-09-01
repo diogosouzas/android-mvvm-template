@@ -1,0 +1,98 @@
+name: 🐛 Bug Report
+description: Report a bug or issue with the template
+title: "[BUG] "
+labels: ["bug", "needs-triage"]
+assignees:
+  - diogosouzas
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report! 🐛
+
+  - type: textarea
+    id: description
+    attributes:
+      label: 📝 Bug Description
+      description: A clear and concise description of what the bug is.
+      placeholder: Describe the bug...
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: 🔄 Steps to Reproduce
+      description: Steps to reproduce the behavior
+      placeholder: |
+        1. Clone the repository
+        2. Run './gradlew assembleDebug'
+        3. See error
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: ✅ Expected Behavior
+      description: A clear and concise description of what you expected to happen.
+      placeholder: What should happen?
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: ❌ Actual Behavior
+      description: A clear and concise description of what actually happened.
+      placeholder: What actually happened?
+    validations:
+      required: true
+
+  - type: dropdown
+    id: component
+    attributes:
+      label: 🏗️ Component
+      description: Which component is affected?
+      options:
+        - UI Layer (Compose/Screens)
+        - Domain Layer (Use Cases)
+        - Data Layer (Repository/API)
+        - Dependency Injection (Koin)
+        - Testing
+        - Build/Gradle
+        - CI/CD
+        - Documentation
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: 🖥️ Environment
+      description: Your development environment
+      placeholder: |
+        - OS: [e.g. macOS 13.0, Windows 11, Ubuntu 22.04]
+        - Android Studio: [e.g. Hedgehog 2023.1.1]
+        - Gradle: [e.g. 8.4]
+        - JDK: [e.g. 17]
+        - Device/Emulator: [e.g. Pixel 6 API 34]
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: 📋 Logs/Error Messages
+      description: Any relevant log output or error messages
+      placeholder: Paste logs here...
+      render: shell
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: 📎 Additional Context
+      description: Any additional context, screenshots, or information
+      placeholder: Add any other context about the problem here...

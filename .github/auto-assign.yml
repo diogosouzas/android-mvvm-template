@@ -1,0 +1,41 @@
+# Auto-assign configuration
+addReviewers: true
+addAssignees: false
+
+reviewers:
+  - diogosouzas
+
+# Number of reviewers to add
+numberOfReviewers: 1
+
+# Skip if PR is in draft
+skipDraft: true
+
+# Skip if PR creator is in this list
+skipUsers:
+  - dependabot[bot]
+  - renovate[bot]
+
+# Use review_groups for different file patterns
+useReviewGroups: true
+
+reviewGroups:
+  ui:
+    - diogosouzas
+  architecture:
+    - diogosouzas
+  testing:
+    - diogosouzas
+  ci-cd:
+    - diogosouzas
+
+# Files patterns for review groups
+files:
+  'app/src/main/java/**/ui/**/*': ui
+  'app/src/main/java/**/theme/**/*': ui
+  'app/src/main/java/**/domain/**/*': architecture
+  'app/src/main/java/**/data/**/*': architecture
+  'app/src/main/java/**/di/**/*': architecture
+  'app/src/test/**/*': testing
+  'app/src/androidTest/**/*': testing
+  '.github/workflows/**/*': ci-cd
