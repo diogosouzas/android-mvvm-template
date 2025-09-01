@@ -221,11 +221,25 @@ jobs:
     - name: 🏷️ Create Release Tag
       id: tag
       run: |
-        VERSION=$(grep 'versionName' app/build.gradle.kts | cut -d'"' -f2)
+        # Extract version from build.gradle.kts with better error handling
+        VERSION=$(grep -E 'versionName\s*=\s*"[^"]*"' app/build.gradle.kts | cut -d'"' -f2 | head -1)
+        
+        # Fallback if version extraction fails
+        if [ -z "$VERSION" ] || [ "$VERSION" = "" ]; then
+          echo "⚠️ Warning: Could not extract version from build.gradle.kts, using default"
+          VERSION="0.0.0"
+        fi
+        
+        # Remove any debug/release suffixes for tagging
+        VERSION_CLEAN=$(echo "$VERSION" | sed 's/-debug$//' | sed 's/-release$//')
+        
         TIMESTAMP=$(date +%Y%m%d-%H%M%S)
-        TAG="v${VERSION}-${TIMESTAMP}"
+        TAG="v${VERSION_CLEAN}-${TIMESTAMP}"
+        
         echo "tag=${TAG}" >> $GITHUB_OUTPUT
         echo "📦 Release Tag: ${TAG}"
+        echo "📝 Original Version: ${VERSION}"
+        echo "🧹 Clean Version: ${VERSION_CLEAN}"
 
     - name: 🚀 Create GitHub Release
       uses: softprops/action-gh-release@v1
