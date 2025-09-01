@@ -8,7 +8,7 @@ on:
   workflow_dispatch: # Allows manual trigger
 
 permissions:
-  contents: read    # Required for checkout
+  contents: write    # Required for checkout
   checks: write     # Required for test reporters to create check runs
   actions: write    # Required for artifact uploads
   pull-requests: read # Required for PR context
