@@ -77,7 +77,7 @@ jobs:
       run: ./gradlew testDebugUnitTest --continue
 
     - name: 📊 Generate Test Report
-      uses: dorny/test-reporter@v1
+      uses: dorny/test-reporter@v2
       if: success() || failure()
       with:
         name: 📋 Unit Test Results (API ${{ matrix.api-level }})
