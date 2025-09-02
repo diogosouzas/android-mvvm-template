@@ -81,6 +81,9 @@ jobs:
     - name: 🧪 Run Unit Tests
       run: ./gradlew testDebugUnitTest --continue
 
+    - name: Clean Gradle cache
+      run: ./gradlew clean
+
     - name: 📊 Generate Test Report
       uses: dorny/test-reporter@v2
       if: success() || failure()
