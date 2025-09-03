@@ -4,6 +4,11 @@ on:
   pull_request:
     types: [opened, synchronize, reopened]
 
+permissions:
+  contents: read        # Required for checkout
+  pull-requests: write  # Required for adding labels to PRs
+  issues: write        # Required for labeler actions
+
 jobs:
   size-labeling:
     name: 📏 Label PR by Size
@@ -31,7 +36,7 @@ jobs:
     
     steps:
     - name: 📥 Checkout Code
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
 
     - name: 🏷️ Component Labeling
       uses: actions/labeler@v4
@@ -45,7 +50,7 @@ jobs:
     
     steps:
     - name: 👤 Auto Assign
-      uses: kentaro-m/auto-assign-action@v1.2.5
+      uses: kentaro-m/auto-assign-action@v2.0.0
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
         configuration-path: .github/auto-assign.yml
