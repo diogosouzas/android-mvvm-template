@@ -32,7 +32,7 @@ lottie = "6.6.7"
 coil = "2.7.0"
 kotlinKsp = "2.2.10-2.0.2"
 kotlinSerialization = "2.2.10"
-composeCompiler = "2.0.21"
+composeCompiler = "2.2.20"
 
 [libraries]
 # AndroidX Core
